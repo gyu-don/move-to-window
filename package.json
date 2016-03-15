@@ -1,0 +1,16 @@
+{
+  "title": "Move To Window",
+  "name": "move-to-window",
+  "version": "0.0.1",
+  "description": "You can move a tab to other window very easily.",
+  "main": "index.js",
+  "author": "gyu-don",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MPL",
+  "keywords": [
+    "jetpack"
+  ]
+}

@@ -1,0 +1,35 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.win {
+  border: 1px solid;
+  border-radius: 10px;
+  background: #E7E8E2;
+  margin: 10px;
+  padding: 5px;
+}
+
+.win.current_win {
+  background: #F8A885;
+}
+
+/*  -moz-drag-over not working??
+
+.win:-moz-drag-over {
+  border: 3px solid;
+  background: white;
+}
+*/
+
+.win.new_win {
+  background: #A8EFAF;
+}
+
+.tab {
+}
+
+.tab.current_tab {
+  text-decoration: underline;
+  color: red;
+}
