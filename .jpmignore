@@ -1,0 +1,7 @@
+.git
+.jpmignore
+.gitignore
+*~
+.*.swp
+data/*.svg
+@*
