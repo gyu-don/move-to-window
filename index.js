@@ -20,6 +20,7 @@ var panel = Panel({
   contentURL: "./panel.html",
   contentScriptFile: "./panel.js",
   contentStyleFile: "./panel.css",
+  height: 1,
   onHide: function(){
     button.state('window', {checked: false});
     panel.port.emit('panel-hide', 0);
@@ -55,7 +56,6 @@ function listTabs() {
         "url": browser.currentURI.spec,
         "isCurrentTab": tab === Tabs.getActiveTab(win)
       });
-      console.log(browser.contentTitle);
     });
   });
   panel.port.emit('tabs-info', obj);
@@ -72,10 +72,6 @@ panel.port.on('tab-move', function(json){
     listTabs();
   }
   else{
-    /*
-    newtab = Tabs.openTab(require('sdk/windows').browserWindows.open('about:blank'), 'about:blank');
-    browser = newtab.getBrowserForTab();
-    */
     gWins[json.tab.w_idx].getBrowser().replaceTabWithWindow(gTabs[json.tab.w_idx][json.tab.t_idx]);
     panel.hide();
   }
@@ -92,5 +88,4 @@ panel.port.on('tab-activate', function(json){
 
 panel.port.on('resize-height', function(height){
   panel.height = height;
-  //panel.resize(panel.width, height);
 });

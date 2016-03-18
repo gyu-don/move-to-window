@@ -29,17 +29,19 @@ function win_drop(ev){
   ev.preventDefault();
 }
 
-function draw(info){
-  document.body.innerHTML = '';
+function eventPreventDefault(ev){
+  ev.preventDefault();
+}
 
-  let fragment = document.createDocumentFragment();
+function draw(info){
+  let body = document.body = document.createElement('body');
 
   info.windows.forEach(function(w, w_idx){
     let w_el = document.createElement('div');
 
     w_el.setAttribute('data-w-idx', w_idx);
     w_el.setAttribute('class', w.isCurrentWindow ? 'win current_win' : 'win');
-    w_el.setAttribute('ondragover', 'return event.preventDefault()');
+    w_el.addEventListener('dragover', eventPreventDefault);
     w_el.addEventListener('drop', win_drop);
 
     let movable = !w.isCurrentWindow || w.tabs.length > 1;
@@ -56,27 +58,28 @@ function draw(info){
       t_el.addEventListener('dragstart', movable ? tab_dragstart : function(){return false;});
       t_el.addEventListener('dblclick', tab_dblclick);
 
-      t_el.textContent = tab.title;
+      t_el.textContent = tab.title || tab.url;
       w_el.appendChild(t_el);
     });
 
-    fragment.appendChild(w_el);
+    body.appendChild(w_el);
   }); 
 
   let w_el = document.createElement('div');
 
   w_el.setAttribute('data-w-idx', -1);
   w_el.setAttribute('class', 'win new_win');
-  w_el.setAttribute('ondragover', 'return event.preventDefault()');
+  w_el.addEventListener('dragover', eventPreventDefault);
   w_el.addEventListener('drop', win_drop);
   w_el.textContent = 'New window';
-  fragment.appendChild(w_el);
+  body.appendChild(w_el);
 
-  document.body.appendChild(fragment);
+  document.body = body;
   self.port.emit("resize-height", document.body.scrollHeight);
 }
 
 self.port.on("tabs-info", draw);
 self.port.on("panel-hide", function(){
-  document.body.innerHTML = '';
+ document.body = document.createElement('body');
+ self.port.emit("resize-height", 1);
 });
