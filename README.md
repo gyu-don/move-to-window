@@ -9,3 +9,8 @@ You can move a tab to other window very easily.
 1. ボタンをクリックし、ウィンドウとタブのリストを表示します。
 2. リスト内のタブをリスト内のウィンドウにドラッグ&ドロップすると、ドラッグしたタブをドロップしたウィンドウに移動できます。
 3. リスト内のタブをダブルクリックすると、そのタブがアクティブになります。
+
+History:
+Ver. 0.0.1: First release
+Ver. 0.0.2: Small modifications
+Ver. 0.0.3: Add "Close tab" function

@@ -24,6 +24,18 @@ body {
 
 .win.new_win {
   background: #A8EFAF;
+  float: left;
+  margin-top: 0;
+  margin-right: 0;
+  width: 40%;
+}
+
+.win.close_tab {
+  background: #B24444;
+  float: right;
+  margin-top: 0;
+  margin-left: 0;
+  width: 40%;
 }
 
 .tab {

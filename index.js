@@ -4,6 +4,9 @@ var { Panel } = require("sdk/panel");
 var Windows = require("sdk/window/utils");
 var Tabs = require("sdk/tabs/utils");
 
+var gWins = [];
+var gTabs = [];
+
 var button = ToggleButton({
   id: "move-to-window",
   label: "Move To Window",
@@ -24,18 +27,15 @@ var panel = Panel({
   onHide: function(){
     button.state('window', {checked: false});
     panel.port.emit('panel-hide', 0);
+    gWins = []; gTabs = [];
   }
 });
-
-var gWins = [];
-var gTabs = [];
 
 panel.port.on('log', function(x){ console.log(x); });
 
 function listTabs() {
   var idomwindows = Windows.windows("navigator:browser");
   var idomactivewindow = Windows.getMostRecentBrowserWindow();
-  panel.show();
 
   var obj = {"windows": []};
   gWins = idomwindows;
@@ -58,6 +58,7 @@ function listTabs() {
       });
     });
   });
+  panel.show();
   panel.port.emit('tabs-info', obj);
 }
 
@@ -77,12 +78,17 @@ panel.port.on('tab-move', function(json){
   }
 });
 
+panel.port.on('tab-close', function(json){
+  Tabs.closeTab(gTabs[json.w_idx][json.t_idx]);
+  listTabs();
+});
+
 panel.port.on('tab-activate', function(json){
   Tabs.activateTab(gTabs[json.w_idx][json.t_idx], gWins[json.w_idx]);
   if(gWins[json.w_idx] === Windows.getMostRecentBrowserWindow()) listTabs();
   else{
-    panel.hide();
     gWins[json.w_idx].focus();
+    panel.hide();
   }
 });
 
