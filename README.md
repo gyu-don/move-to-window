@@ -14,3 +14,5 @@ History:
 Ver. 0.0.1: First release
 Ver. 0.0.2: Small modifications
 Ver. 0.0.3: Add "Close tab" function
+Ver. 0.0.4: Double click "New window", then an new window is opened.
+            Layout adjustment and debugging.

@@ -87,11 +87,17 @@ panel.port.on('tab-activate', function(json){
   Tabs.activateTab(gTabs[json.w_idx][json.t_idx], gWins[json.w_idx]);
   if(gWins[json.w_idx] === Windows.getMostRecentBrowserWindow()) listTabs();
   else{
-    gWins[json.w_idx].focus();
+    let w = gWins[json.w_idx];
     panel.hide();
+    w.focus();
   }
 });
 
 panel.port.on('resize-height', function(height){
   panel.height = height;
+});
+
+panel.port.on('new-window', function(){
+  Windows.open(null, {});
+  panel.hide();
 });

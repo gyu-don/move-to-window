@@ -28,14 +28,18 @@ function win_drop(ev){
   ev.preventDefault();
 }
 
+function newwin_dblclick(ev){
+  self.port.emit('new-window', 0);
+}
+
 function eventPreventDefault(ev){
   ev.preventDefault();
 }
 
 function draw(info){
+  self.port.emit("resize-height", 1);
   let body = document.createElement('body');
 
-  self.port.emit("resize-height", 1);
   info.windows.forEach(function(w, w_idx){
     let w_el = document.createElement('div');
 
@@ -65,23 +69,29 @@ function draw(info){
   }); 
 
   let w_el = document.createElement('div');
-  w_el.setAttribute('data-w-idx', -1);
-  w_el.setAttribute('class', 'win new_win');
-  w_el.addEventListener('dragover', eventPreventDefault);
-  w_el.addEventListener('drop', win_drop);
-  w_el.textContent = 'New window';
-  body.appendChild(w_el);
+  w_el.setAttribute('class', 'container');
 
-  w_el = document.createElement('div');
-  w_el.setAttribute('data-w-idx', -2);
-  w_el.setAttribute('class', 'win close_tab');
-  w_el.addEventListener('dragover', eventPreventDefault);
-  w_el.addEventListener('drop', win_drop);
-  w_el.textContent = 'Close tab';
+  let div = document.createElement('div');
+  div.setAttribute('data-w-idx', -1);
+  div.setAttribute('class', 'win new_win');
+  div.addEventListener('dragover', eventPreventDefault);
+  div.addEventListener('drop', win_drop);
+  div.addEventListener('dblclick', newwin_dblclick);
+  div.textContent = 'New window';
+  w_el.appendChild(div);
+
+  div = document.createElement('div');
+  div.setAttribute('data-w-idx', -2);
+  div.setAttribute('class', 'win close_tab');
+  div.addEventListener('dragover', eventPreventDefault);
+  div.addEventListener('drop', win_drop);
+  div.textContent = 'Close tab';
+  w_el.appendChild(div);
+
   body.appendChild(w_el);
 
   document.body = body;
-  self.port.emit("resize-height", document.body.scrollHeight);
+  self.port.emit("resize-height", document.body.offsetHeight + 10);
 }
 
 self.port.on("tabs-info", draw);

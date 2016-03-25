@@ -1,6 +1,7 @@
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
+  -moz-user-select: none;
 }
 .win {
   border: 1px solid;
@@ -22,20 +23,26 @@ body {
 }
 */
 
+div.container{
+  /* display: -moz-box; */
+  display: flex;
+  -moz-box-pack: justify;
+  -moz-box-sizing: border-box;
+}
 .win.new_win {
   background: #A8EFAF;
-  float: left;
+  /* float: left; */
   margin-top: 0;
-  margin-right: 0;
-  width: 40%;
+  margin-right: 5px;
+  width: 50%;
 }
 
 .win.close_tab {
   background: #B24444;
-  float: right;
+  /* float: right; */
   margin-top: 0;
-  margin-left: 0;
-  width: 40%;
+  margin-left: 5px;
+  width: 50%;
 }
 
 .tab {
