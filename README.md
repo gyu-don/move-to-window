@@ -31,3 +31,5 @@ Ver. 0.0.5: (nothing)
 Ver. 0.0.6: Disallow wrapping text for long title tab.
 
 Ver. 0.0.7: Get the tab title from session store API if the title is not set.
+
+Ver. 0.0.8: Bug fixed

@@ -58,7 +58,8 @@ function listTabs() {
       let title = browser.contentTitle;
 
       if(!title){
-        title = windowSession.tabs[i].entries[0].title || "";
+        let n = windowSession.tabs[i].entries.length - 1;
+        title = windowSession.tabs[i].entries[n].title || "";
       }
       w.tabs.push({
         "title": title,
