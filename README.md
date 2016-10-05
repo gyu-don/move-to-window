@@ -34,4 +34,4 @@ Ver. 0.0.7: Get the tab title from session store API if the title is not set.
 
 Ver. 0.0.8: Bug fixed
 
-Ver. 0.0.8: Bug fixed again
+Ver. 0.0.9: Bug fixed again
