@@ -1,7 +1,7 @@
 {
   "title": "Move To Window",
   "name": "move-to-window",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "You can move a tab to other window very easily.",
   "main": "index.js",
   "author": "gyu-don",

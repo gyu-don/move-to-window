@@ -3,6 +3,10 @@ var { ToggleButton } = require("sdk/ui/button/toggle");
 var { Panel } = require("sdk/panel");
 var Windows = require("sdk/window/utils");
 var Tabs = require("sdk/tabs/utils");
+var { Cc, Ci } = require('chrome');
+
+var sessionstore = Cc["@mozilla.org/browser/sessionstore;1"]
+                      .getService(Ci.nsISessionStore);
 
 var gWins = [];
 var gTabs = [];
@@ -45,14 +49,19 @@ function listTabs() {
     let isCurrentWindow = win === idomactivewindow;
     let w = {"isCurrentWindow": isCurrentWindow, "tabs": []};
     let tabs = Tabs.getTabs(win);
+    let windowSession = JSON.parse(sessionstore.getWindowState(win)).windows[0];
 
     obj.windows.push(w);
     gTabs.push(tabs);
-    tabs.forEach(function(tab){
+    tabs.forEach(function(tab, i){
       let browser = Tabs.getBrowserForTab(tab);
+      let title = browser.contentTitle;
 
+      if(!title){
+        title = windowSession.tabs[i].entries[0].title || "";
+      }
       w.tabs.push({
-        "title": browser.contentTitle,
+        "title": title,
         "url": browser.currentURI.spec,
         "isCurrentTab": tab === Tabs.getActiveTab(win)
       });
@@ -64,7 +73,7 @@ function listTabs() {
 
 panel.port.on('tab-move', function(json){
   let browser, newtab;
-  
+
   if(json.win != -1){
     browser = gWins[json.win].getBrowser();
     newtab = browser.addTab('about:blank');

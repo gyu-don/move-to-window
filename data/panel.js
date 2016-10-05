@@ -52,6 +52,7 @@ function draw(info){
     w.tabs.forEach(function(tab, t_idx){
       let t_el = document.createElement('div');
       let lbl_el = document.createElement('label');
+      let title = tab.title || tab.url.replace(/^http:\/\//, "");
 
       t_el.setAttribute('data-w-idx', w_idx);
       t_el.setAttribute('data-t-idx', t_idx);
@@ -61,7 +62,8 @@ function draw(info){
       t_el.addEventListener('dragstart', movable ? tab_dragstart : function(){return false;});
       t_el.addEventListener('dblclick', tab_dblclick);
 
-      t_el.textContent = tab.title || tab.url;
+      t_el.textContent = title;
+      t_el.setAttribute('data-tooltip', title);
       w_el.appendChild(t_el);
     });
 

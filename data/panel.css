@@ -46,7 +46,26 @@ div.container{
 }
 
 .tab {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
+/*
+.tab[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 15px;
+  border: 1px #aaaaaa solid;
+  border-radius: 2px;
+  background-color: #dddddd;
+  color: #000000;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: visible;
+  opacity: 0.6;
+}
+*/
 
 .tab.current_tab {
   text-decoration: underline;
