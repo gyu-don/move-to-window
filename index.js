@@ -49,17 +49,16 @@ function listTabs() {
     let isCurrentWindow = win === idomactivewindow;
     let w = {"isCurrentWindow": isCurrentWindow, "tabs": []};
     let tabs = Tabs.getTabs(win);
-    let windowSession = JSON.parse(sessionstore.getWindowState(win)).windows[0];
 
     obj.windows.push(w);
     gTabs.push(tabs);
-    tabs.forEach(function(tab, i){
+    tabs.forEach(function(tab){
       let browser = Tabs.getBrowserForTab(tab);
       let title = browser.contentTitle;
 
       if(!title){
-        let n = windowSession.tabs[i].entries.length - 1;
-        title = windowSession.tabs[i].entries[n].title || "";
+        let sess = JSON.parse(sessionstore.getTabState(tab));
+        title = sess.entries[sess.index - 1].title || "";
       }
       w.tabs.push({
         "title": title,
