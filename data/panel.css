@@ -3,71 +3,53 @@ body {
   padding: 0;
   -moz-user-select: none;
 }
+
 .win {
   border: 1px solid;
   border-radius: 10px;
   background: #E7E8E2;
   margin: 10px;
-  padding: 5px;
+  padding: 0px 4px; 
 }
 
-.win.current_win {
+.win[data-is-active="true"] {
   background: #F8A885;
 }
 
-/*  -moz-drag-over not working??
-
-.win:-moz-drag-over {
-  border: 3px solid;
-  background: white;
+.vpadding {
+  height: 6px;
 }
-*/
 
 div.container{
-  /* display: -moz-box; */
   display: flex;
   -moz-box-pack: justify;
   -moz-box-sizing: border-box;
 }
+
 .win.new_win {
   background: #A8EFAF;
-  /* float: left; */
   margin-top: 0;
   margin-right: 5px;
   width: 50%;
+  padding: 6px 4px;
 }
 
 .win.close_tab {
   background: #B24444;
-  /* float: right; */
   margin-top: 0;
   margin-left: 5px;
   width: 50%;
+  padding: 6px 4px;
 }
 
 .tab {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -moz-box-sizing: border-box;
 }
 
-/*
-.tab[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 15px;
-  border: 1px #aaaaaa solid;
-  border-radius: 2px;
-  background-color: #dddddd;
-  color: #000000;
-  overflow: hidden;
-  white-space: normal;
-  text-overflow: visible;
-  opacity: 0.6;
-}
-*/
-
-.tab.current_tab {
+.tab[data-is-active="true"] {
   text-decoration: underline;
   color: red;
 }

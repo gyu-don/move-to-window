@@ -72,18 +72,28 @@ function listTabs() {
 }
 
 panel.port.on('tab-move', function(json){
-  let browser, newtab;
-
-  if(json.win != -1){
-    browser = gWins[json.win].getBrowser();
-    newtab = browser.addTab('about:blank');
-    newtab.linkedBrowser.stop();
-    browser.swapBrowsersAndCloseOther(newtab, gTabs[json.tab.w_idx][json.tab.t_idx]);
-    listTabs();
+  if(json.to.w_idx == -1){  // Open new window
+    let browser = gWins[json.from.w_idx].getBrowser();
+    browser.replaceTabWithWindow(gTabs[json.from.w_idx][json.from.t_idx]);
+    panel.hide();
   }
   else{
-    gWins[json.tab.w_idx].getBrowser().replaceTabWithWindow(gTabs[json.tab.w_idx][json.tab.t_idx]);
-    panel.hide();
+    let browser = gWins[json.to.w_idx].getBrowser();
+
+    if(json.from.w_idx != json.to.w_idx){  // Move to other window
+      let newtab = browser.addTab('about:blank');
+
+      newtab.linkedBrowser.stop();
+      browser.swapBrowsersAndCloseOther(newtab, gTabs[json.from.w_idx][json.from.t_idx]);
+      let t_idx = browser.tabs.length - 1;
+      if(json.to.t_idx != t_idx){
+        browser.moveTabTo(browser.tabs[t_idx], json.to.t_idx);
+      }
+    }
+    else if(json.from.t_idx != json.to.t_idx){  // Move tab in same window.
+      browser.moveTabTo(gTabs[json.from.w_idx][json.from.t_idx], json.to.t_idx);
+    }
+    listTabs();
   }
 });
 
