@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Move To Window",
+  "version": "0.2",
+
+  "description": "You can move a tab to other window very easily.",
+  "icons": {
+      "32": "data/icon-32.png",
+      "48": "data/icon-48.png"
+  },
+  "browser_action": {
+      "default_icon": "data/icon-32.png",
+      "default_title": "Move To Window",
+      "default_popup": "panel.html",
+      "browser_style": false
+  },
+  "permissions": ["tabs"]
+}
